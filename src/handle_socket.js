@@ -1,20 +1,29 @@
+const WebsocketRequest = require('./websocket_request');
+
 const {
   handleNewConnection,
   handleConnectionClose,
-  handleMessage
+  handleRequest
 } = require('./game_lobby');
 
-module.exports = (request) => {
-  const connection = request.accept('echo-protocol', request.origin);
-  handleConnection(connection);
-};
+module.exports = ({delay}) => {
+  const buildRequest = WebsocketRequest.buildRequest({delay: delay});
 
-const handleConnection = (connection) => {
-  handleNewConnection(connection);
-  connection.on('message', handleMessage(connection));
+  return (request) => {
+    setTimeout(() => {
+      const connection = request.accept('echo-protocol', request.origin);
+      const requestFromMessage = buildRequest(connection);
 
-  connection.on('close', (reasonCode, description) => {
-    console.log(`Peer ${connection.remoteAddress} disconnected: ${reasonCode}, ${description}`);
-    handleConnectionClose(connection);
-  });
+      handleNewConnection(connection);
+
+      connection.on('message', (message) => {
+        handleRequest(requestFromMessage(message));
+      });
+
+      connection.on('close', (reasonCode, description) => {
+        console.log(`Peer ${connection.remoteAddress} disconnected: ${reasonCode}, ${description}`);
+        handleConnectionClose(connection);
+      });
+    }, delay);
+  };
 };
