@@ -1,0 +1,21 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "expect": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+  ],
+  rules: {
+    "max-len": ["error", 120],
+    "require-jsdoc": "off",
+    "comma-dangle": "off"
+  }
+}
