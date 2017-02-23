@@ -1,11 +1,11 @@
 const createNumberGame = (targetNumber) => {
   const guess = (guessNumber) => {
     if (guessNumber == targetNumber) {
-      return {comparedToAnswer: 'EQ'};
+      return {move: {comparedToAnswer: 'EQ', guess: guessNumber}, game: {status: 'finished'}};
     } else if (guessNumber > targetNumber) {
-      return {comparedToAnswer: 'GT'};
+      return {move: {comparedToAnswer: 'GT', guess: guessNumber}, game: {status: 'ready_for_move'}};
     } else {
-      return {comparedToAnswer: 'LT'};
+      return {move: {comparedToAnswer: 'LT', guess: guessNumber}, game: {status: 'ready_for_move'}};
     }
   };
 

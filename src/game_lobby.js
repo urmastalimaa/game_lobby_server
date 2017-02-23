@@ -3,12 +3,29 @@ const uuid = require('node-uuid');
 const {generateWordGame} = require('./games/guess_word');
 const {generateNumberGame} = require('./games/guess_number');
 
-const handleNewConnection = (connection) => {
+const onlinePlayers = {};
 
+const handlePlayerJoin = (newPlayer) => {
+  onlinePlayers[newPlayer.id] = newPlayer;
+  notifyAllPlayers({except: newPlayer});
+
+  console.log(`Player ${newPlayer.name} joined`);
 };
 
-const handleConnectionClose = (connection) => {
+const handlePlayerLeave = (player) => {
+  delete onlinePlayers[player.id];
+  notifyAllPlayers();
 
+  console.log(`Player ${player.name} left`);
+};
+
+const notifyAllPlayers = ({except}={}) => {
+  Object.keys(onlinePlayers).forEach((playerId) => {
+    const player = onlinePlayers[playerId];
+    if (player !== except) {
+      player.notify({eventType: 'online-players', players: onlinePlayers});
+    }
+  });
 };
 
 const GAME_TYPE_TO_CREATE = {
@@ -38,7 +55,7 @@ const applyMove = ({respond, message}) => {
   }
 };
 
-const handleRequest = ({respond, message}) => {
+const handleRequest = (player, {respond, message}) => {
   if (message.type === 'create_game') {
     createGame({respond, message});
   } else if (message.type === 'send_move') {
@@ -49,7 +66,7 @@ const handleRequest = ({respond, message}) => {
 };
 
 module.exports = {
-  handleNewConnection: handleNewConnection,
-  handleConnectionClose: handleConnectionClose,
+  handlePlayerJoin: handlePlayerJoin,
+  handlePlayerLeave: handlePlayerLeave,
   handleRequest: handleRequest
 };

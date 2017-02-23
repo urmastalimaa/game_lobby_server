@@ -15,10 +15,17 @@ const createWordGame = (targetWord) => {
         nrOfCorrectLetters += 1;
       }
     }
+    const guessCorrect = guessWord === targetWord;
 
     return {
-      correct: guessWord === targetWord,
-      nrOfCorrectLetters: nrOfCorrectLetters
+      move: {
+        correct: guessCorrect,
+        nrOfCorrectLetters: nrOfCorrectLetters,
+        guess: guessWord,
+      },
+      game: {
+        status: guessCorrect ? 'finished' : 'ready_for_move'
+      }
     };
   };
 
