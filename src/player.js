@@ -10,6 +10,10 @@ class Player {
   notify(message) {
     this._connection.notify(message);
   }
+
+  serialize() {
+    return {id: this.id, name: this.name};
+  }
 }
 
 module.exports = Player;

@@ -1,16 +1,13 @@
-const createWebsocketInterface = require('./websocket_interface');
+const createWebsocketInterface = require('./WebsocketInterface');
 
-const {
-  handlePlayerJoin,
-  handlePlayerLeave,
-  handleRequest
-} = require('./game_lobby');
-
-const Player = require('./player');
+const GameLobby = require('./GameLobby');
+const Player = require('./Player');
 
 let playerCounter = 0;
 
 module.exports = ({delay}) => {
+  const gameLobby = new GameLobby();
+
   return (request) => {
     playerCounter += 1;
 
@@ -25,15 +22,15 @@ module.exports = ({delay}) => {
         name: queryParameters.playerName || `#${playerCounter}`
       });
 
-      handlePlayerJoin(player);
+      gameLobby.handlePlayerJoin(player);
 
       connection.on('message', (message) => {
-        handleRequest(player, websocketInterface.buildRequest(message));
+        gameLobby.handleRequest(player, websocketInterface.buildRequest(message));
       });
 
       connection.on('close', (reasonCode, description) => {
         console.log(`Peer ${connection.remoteAddress} disconnected: ${reasonCode}, ${description}`);
-        handlePlayerLeave(player);
+        gameLobby.handlePlayerLeave(player);
       });
     }, delay);
   };

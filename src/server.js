@@ -21,7 +21,7 @@ parser.addArgument(
 
 const args = parser.parseArgs();
 
-const handleIncomingRequest = require('./handle_socket');
+const handleIncomingRequest = require('./SocketHandler');
 
 const websocketPort = 8081;
 
