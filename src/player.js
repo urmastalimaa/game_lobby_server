@@ -1,10 +1,8 @@
-const uuid = require('node-uuid');
-
 class Player {
-  constructor({connection, name}) {
+  constructor({id, connection, name}) {
     this._connection = connection;
     this.name = name;
-    this.id = uuid.v4();
+    this.id = id;
   }
 
   notify(message) {

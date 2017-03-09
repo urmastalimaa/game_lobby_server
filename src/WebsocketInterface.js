@@ -20,6 +20,10 @@ const websocketInterface = ({delay}) => (connection) => {
   const buildRequest = (message) => {
     const match = message.utf8Data.match(/(\d+)\/(.*)/);
 
+    if (!match) {
+      throw new Error('Invalid message format');
+    }
+
     const requestId = match[1];
     const payload = match[2];
 

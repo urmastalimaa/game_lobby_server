@@ -25,6 +25,10 @@ class GameLobby {
     return R.values(this.onlinePlayers);
   }
 
+  playerWithNameExists(name) {
+    return R.any(R.propEq('name', name), R.values(this.onlinePlayers));
+  }
+
   notifyAllPlayers(message, {except}={}) {
     Object.keys(this.onlinePlayers).forEach((playerId) => {
       const player = this.onlinePlayers[playerId];

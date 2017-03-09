@@ -166,4 +166,16 @@ describe('GameLobby', () => {
       });
     });
   });
+
+  describe('playerWithNameExists', () => {
+    it('is true if player with name exists', () => {
+      let player1 = generatePlayer('player1');
+      gameLobby.handlePlayerJoin(player1);
+      expect(gameLobby.playerWithNameExists(player1.name)).to.eq(true);
+    });
+
+    it('is true if player with name does not exist', () => {
+      expect(gameLobby.playerWithNameExists('player2')).to.eq(false);
+    });
+  });
 });
