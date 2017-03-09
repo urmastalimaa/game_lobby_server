@@ -2,7 +2,7 @@ const TurnBasedOrRealTimeGame = require('./TurnBasedOrRealTimeGame');
 
 class GuessNumber {
   static generate({id, players, mode}) {
-    const upperBound = 100;
+    const upperBound = 10;
     const number = Math.floor(Math.random() * upperBound);
     return new GuessNumber({id, targetNumber: number, players, mode});
   }
