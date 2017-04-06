@@ -1,10 +1,11 @@
 {
   "name": "game_lobby_server",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Server for Game Lobby practice project",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node src/server.js --delay=500",
+    "start-fast": "node src/server.js --delay=0",
     "start-slow": "node src/server.js --delay=500",
     "start-very-slow": "node src/server.js --delay=2000",
     "lint": "eslint src",
@@ -13,6 +14,9 @@
   },
   "author": "Urmas Talimaa",
   "license": "MIT",
+  "bin": {
+    "game_lobby_server": "./bin/server.js"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
@@ -23,8 +27,10 @@
   },
   "dependencies": {
     "argparse": "^1.0.9",
-    "node-uuid": "^1.4.7",
-    "ramda": "^0.23.0",
-    "websocket": "^1.0.24"
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "uuid": "^3.0.1",
+    "ramda": "^0.23.0"
   }
 }

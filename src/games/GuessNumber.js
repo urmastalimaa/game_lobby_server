@@ -1,39 +1,32 @@
-const TurnBasedOrRealTimeGame = require('./TurnBasedOrRealTimeGame');
+const Game = require('./Game');
 
 class GuessNumber {
-  static generate({id, players, mode}) {
+  static generate({id}) {
     const upperBound = 10;
     const number = Math.floor(Math.random() * upperBound);
-    return new GuessNumber({id, targetNumber: number, players, mode});
+    return new GuessNumber({id, targetNumber: number});
   }
 
-  constructor({id, targetNumber, players, mode}) {
-    this.game = new TurnBasedOrRealTimeGame({id, players, mode, type: 'guess_number'});
+  constructor({id, targetNumber}) {
+    this.game = new Game({id, type: 'guess_number'});
     this.targetNumber = targetNumber;
   }
 
-  move({player, move}) {
-    if (!this.game.isNextToMove(player)) {
-      return {error: 'not_your_move', nextPlayer: this.game.getNextPlayer().serialize()};
-    }
+  move({move}) {
     const isCorrect = move === this.targetNumber;
-    this.game.move({player, move, isCorrect});
+    this.game.move({move, isCorrect});
 
     if (move === this.targetNumber) {
-      return {move: {comparedToAnswer: 'EQ', guess: move}, game: this.game.presentFor(player)};
+      return {move: {comparedToAnswer: 'EQ', guess: move}, game: this.game.present()};
     } else if (move > this.targetNumber) {
-      return {move: {comparedToAnswer: 'GT', guess: move}, game: this.game.presentFor(player)};
+      return {move: {comparedToAnswer: 'GT', guess: move}, game: this.game.present()};
     } else {
-      return {move: {comparedToAnswer: 'LT', guess: move}, game: this.game.presentFor(player)};
+      return {move: {comparedToAnswer: 'LT', guess: move}, game: this.game.present()};
     }
   }
 
-  presentFor(player) {
-    return this.game.presentFor(player);
-  }
-
-  getPlayers() {
-    return this.game.getPlayers();
+  present() {
+    return this.game.present();
   }
 }
 

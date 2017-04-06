@@ -1,5 +1,8 @@
-const http = require('http');
-const WebSocketServer = require('websocket').server;
+const cors = require('cors');
+const express = require('express');
+const GameLobby = require('./GameLobby');
+const bodyParser = require('body-parser');
+const R = require('ramda');
 
 const ArgumentParser = require('argparse').ArgumentParser;
 const parser = new ArgumentParser({
@@ -19,25 +22,55 @@ parser.addArgument(
   }
 );
 
+parser.addArgument(
+  ['--port'],
+  {
+    help: 'Port to start server on',
+    type: 'int',
+    defaultValue: 8081,
+    required: false,
+    dest: 'port'
+  }
+);
+
 const args = parser.parseArgs();
 
-const handleIncomingRequest = require('./SocketHandler');
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
-const websocketPort = 8081;
+const gameLobby = new GameLobby();
 
-const server = http.createServer(function(request, response) {
-  console.log(`${new Date()} Received request for ${request.url}`);
-  response.writeHead(404);
-  response.end();
+const respond = (fn) => {
+  setTimeout(fn, args.delay);
+};
+
+app.post('/games', (req, res) => {
+  console.log('Create game', req.body);
+  gameLobby.createGame(
+    req.body,
+    ({body, status}) => {
+      respond(() => {
+        console.log('Create game response', body, status);
+        res.status(status).json(body);
+      });
+    }
+  );
 });
 
-const wsServer = new WebSocketServer({
-  httpServer: server,
-  autoAcceptConnections: false
+app.post('/games/:gameId/moves', (req, res) => {
+  console.log('Create move', R.merge(req.params, req.body));
+  gameLobby.applyMove(
+    R.merge(req.params, req.body),
+    ({body, status}) => {
+      respond(() => {
+        console.log('Create move response', body, status);
+        res.status(status).json(body);
+      });
+    }
+  );
 });
 
-wsServer.on('request', handleIncomingRequest({delay: args.delay}));
-
-server.listen(websocketPort, function() {
-  console.log(`${new Date()} Server is listening on port ${websocketPort}`);
+app.listen(args.port, () => {
+  console.log(`${new Date()} Server is listening on port ${args.port}`);
 });
