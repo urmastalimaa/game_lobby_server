@@ -33,6 +33,17 @@ parser.addArgument(
   }
 );
 
+parser.addArgument(
+  ['--failure-percentage'],
+  {
+    help: 'Percentage of requests to arbitrarily fail',
+    type: 'int',
+    defaultValue: 0,
+    required: false,
+    dest: 'failurePercentage'
+  }
+);
+
 const args = parser.parseArgs();
 
 const app = express();
@@ -45,7 +56,15 @@ const respond = (fn) => {
   setTimeout(fn, args.delay);
 };
 
+const forcedToFail = () =>
+  Math.random() * 100 < args.failurePercentage;
+
 app.post('/games', (req, res) => {
+  if (forcedToFail()) {
+    res.status(503).send({error: 'Service currently unavailable'});
+    return;
+  }
+
   console.log('Create game', req.body);
   gameLobby.createGame(
     req.body,
@@ -59,6 +78,11 @@ app.post('/games', (req, res) => {
 });
 
 app.post('/games/:gameId/moves', (req, res) => {
+  if (forcedToFail()) {
+    res.status(503).send({error: 'Service currently unavailable'});
+    return;
+  }
+
   console.log('Create move', R.merge(req.params, req.body));
   gameLobby.applyMove(
     R.merge(req.params, req.body),
