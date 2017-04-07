@@ -36,7 +36,7 @@ class GameLobby {
     if (!game) {
       respond({error: 'game_not_found', status: 404});
     } else {
-      const response = game.move({move: params.move});
+      const response = game.move({move: params.guess});
       respond({body: response, status: 201});
     }
   }
