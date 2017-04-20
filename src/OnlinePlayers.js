@@ -33,7 +33,7 @@ module.exports = ({delay}) => {
       const playerName = queryParameters.playerName;
       const playerId = uuid.v4();
 
-      const connection = httpRequest.accept('echo-protocol', httpRequest.origin);
+      const connection = httpRequest.accept(httpRequest.requestedProtocols[0], httpRequest.origin);
 
       if (players.find((player) => player.name === playerName)) {
         connection.close(4000, CONNECTION_REJECT_REASONS.nameTaken);
