@@ -1,6 +1,6 @@
 {
   "name": "game_lobby_server",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Server for Game Lobby practice project",
   "main": "src/server.js",
   "scripts": {
@@ -23,7 +23,8 @@
     "eslint-config-google": "^0.7.1",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "websocket": "^1.0.24"
   },
   "dependencies": {
     "argparse": "^1.0.9",

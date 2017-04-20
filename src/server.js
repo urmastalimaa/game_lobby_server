@@ -1,10 +1,14 @@
 const cors = require('cors');
 const express = require('express');
-const GameLobby = require('./GameLobby');
 const bodyParser = require('body-parser');
 const R = require('ramda');
-
+const http = require('http');
+const WebSocketServer = require('websocket').server;
 const ArgumentParser = require('argparse').ArgumentParser;
+
+const GameLobby = require('./GameLobby');
+const handleOnlinePlayers = require('./OnlinePlayers');
+
 const parser = new ArgumentParser({
   version: '0.0.1',
   addHelp: true,
@@ -95,6 +99,15 @@ app.post('/games/:gameId/moves', (req, res) => {
   );
 });
 
-app.listen(args.port, () => {
+const server = http.createServer(app);
+
+const wsServer = new WebSocketServer({
+  httpServer: server,
+  autoAcceptConnections: false
+});
+
+wsServer.on('request', handleOnlinePlayers({delay: args.delay}));
+
+server.listen(args.port, function() {
   console.log(`${new Date()} Server is listening on port ${args.port}`);
 });

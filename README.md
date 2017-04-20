@@ -1,4 +1,3 @@
-
 # Game Lobby Server
 
 A server for [Interactive Frontend Development course](https://courses.cs.ut.ee/2017/react/spring/) project.
@@ -68,3 +67,44 @@ Response `{move, game}`
     * _id_: `String`
     * _type_: `String`(_guess_word_)
     * _status_: `String`(_waiting_for_move_ | _finished_)
+
+### WebSocket API
+
+#### Required query parameters
+
+Pass query parameters in the URL when connection to the server, e.g connect to the following URL:
+```
+ws://localhost:8081/?playerName=foo
+```
+
+Required parameters:
+
+* _playerName_: `String`, the name the connecting player wants to use.
+
+#### Error codes
+
+If the connection cannot be accepted for any reason, the connection is closed with
+
+* `code:4000, reason:'player-name-taken'`, if player is not allowed to connect due to the provided name not being available.
+
+#### Messages
+
+WebSocket API pushes messages as JSON objects encoded as UTF-8 strings.
+
+The encoded JSON object has the following properties:
+
+* _eventName_: `String`, name of the event
+* _payload_: `Object`, payload of the event
+
+Example frame that might be sent to a connection:
+```
+'{"eventName":"connection:accepted","payload":{"playerId":"b00e6b69-ae49-431f-8dbd-12d7b5c95153"}}'
+```
+
+The following events might be sent
+
+* _connection:accepted_: `{playerId}`, sent immediately after connection is opened.
+    * _playerId_: `String`, an unique ID given to the connected player
+* _online-players_: `Array[{id, name}]`, list of online players, sent whenever a player connects or disconnects.
+    * _id_: `String`, unique identifier of the player
+    * _name_: `String`, name of the player
