@@ -46,12 +46,12 @@ Request Body Parameters
 Response `{move, game}`
 
 * _move_: `{comparedToAnswer, guess}`
-  * comparedToAnswer: `String`(_LT_ | _GT_ | _EQ_)
-  * guess: `Integer`, echo of the submitted guess
+    * comparedToAnswer: `String`(_LT_ | _GT_ | _EQ_)
+    * guess: `Integer`, echo of the submitted guess
 * _game_: `{id, type, status}`
-  * id: `String`
-  * type: `String`(_guess_number_)
-  * status: `String`(_waiting_for_move_ | _finished_)
+    * id: `String`
+    * type: `String`(_guess_number_)
+    * status: `String`(_waiting_for_move_ | _finished_)
 
 ##### Game type: _guess_word_
 
@@ -61,10 +61,10 @@ Request Body Parameters
 Response `{move, game}`
 
 * _move_: `{correct, letterMatches, guess}`
-  * _correct_: `Boolean`
-  * _letterMatches_: `Array[Boolean]`, true if character at position was correct, false otherwise
-  * _guess_: `String`, echo of the submitted guess
+    * _correct_: `Boolean`
+    * _letterMatches_: `Array[Boolean]`, true if character at position was correct, false otherwise
+    * _guess_: `String`, echo of the submitted guess
 * _game_: `{id, type, status}`
-  * _id_: `String`
-  * _type_: `String`(_guess_word_)
-  * _status_: `String`(_waiting_for_move_ | _finished_)
+    * _id_: `String`
+    * _type_: `String`(_guess_word_)
+    * _status_: `String`(_waiting_for_move_ | _finished_)
