@@ -1,6 +1,6 @@
 {
   "name": "game_lobby_server",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Server for Game Lobby practice project",
   "main": "src/server.js",
   "scripts": {
@@ -23,8 +23,7 @@
     "eslint-config-google": "^0.7.1",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0",
-    "websocket": "^1.0.24"
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "argparse": "^1.0.9",
@@ -32,6 +31,7 @@
     "cors": "^2.8.3",
     "express": "^4.15.2",
     "uuid": "^3.0.1",
-    "ramda": "^0.23.0"
+    "ramda": "^0.23.0",
+    "websocket": "^1.0.24"
   }
 }
