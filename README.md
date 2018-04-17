@@ -28,11 +28,11 @@ npm start
 #### POST _/games/_
 
 Request Body Parameters
-* _type_: `String`(_guess_number_ | _guess_word_)
+* _type_: `String`(_guess_number_ | _guess_word_ | _hangman_)
 
 Response `{id, type, status}`
 * _id_: `String`
-* _type_: `String`(_guess_number_ | _guess_word_), echo of the submitted type
+* _type_: `String`, echo of the submitted type
 * _status_: `String`(_waiting_for_move_)
 
 #### POST _/games/:gameId/moves_
@@ -67,6 +67,25 @@ Response `{move, game}`
     * _id_: `String`
     * _type_: `String`(_guess_word_)
     * _status_: `String`(_waiting_for_move_ | _finished_)
+
+##### Game type: _hangman_
+
+Request Body Parameters
+* _guess_: `String`
+
+Response `{move, game}`
+
+* _move_: `{correct, letterMatches, guess}`
+    * _matchedLetterCount_: `Integer`, how many letters of the target word matched the input
+    * _letters_: `Array[String]`, list of letters that have been already
+      guessed, letters which have not been guessed are denoted with `undefined`
+    * _guess_: `String`, echo of the submitted guess
+* _game_: `{id, type, status}`
+    * _id_: `String`
+    * _type_: `String`(_hangman_)
+    * _status_: `String`(_waiting_for_move_ | _finished_)
+    * _won_: `Boolean`, whether the game has finished with a victory
+    * _wrongGuessCount_: `Integer`, number of invalid guesses thus far
 
 ### WebSocket API
 
