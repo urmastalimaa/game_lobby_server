@@ -10,7 +10,7 @@
     "start-very-slow": "node src/server.js --delay=2000",
     "lint": "eslint src",
     "test": "mocha",
-    "pretest": "npm run lint"
+    "pretest": "eslint src"
   },
   "author": "Urmas Talimaa",
   "license": "MIT",
