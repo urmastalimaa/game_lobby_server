@@ -28,19 +28,22 @@ npm start
 #### POST _/games/_
 
 Request Body Parameters
+
 * _type_: `String`(_guess_number_ | _guess_word_ | _hangman_ | _rps_)
 
 Response `{id, type, status}`
+
 * _id_: `String`
 * _type_: `String`, echo of the submitted type
 * _status_: `String`(_waiting_for_move_)
 
 #### POST _/games/:gameId/moves_
 
-Request Body Parameters
-* _guess_: `Integer`
-
 ##### Game type: _guess_number_
+
+Request Body Parameters
+
+* _guess_: `Integer`
 
 Response `{move, game}`
 
@@ -55,6 +58,7 @@ Response `{move, game}`
 ##### Game type: _guess_word_
 
 Request Body Parameters
+
 * _guess_: `String`
 
 Response `{move, game}`
@@ -71,6 +75,7 @@ Response `{move, game}`
 ##### Game type: _hangman_
 
 Request Body Parameters
+
 * _guess_: `String`
 
 Response `{move, game}`
@@ -90,6 +95,7 @@ Response `{move, game}`
 ##### Game type: _rps_
 
 Request Body Parameters
+
 * _guess_: `String`
 
 Response `{move, game}`
