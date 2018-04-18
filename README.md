@@ -28,7 +28,7 @@ npm start
 #### POST _/games/_
 
 Request Body Parameters
-* _type_: `String`(_guess_number_ | _guess_word_ | _hangman_)
+* _type_: `String`(_guess_number_ | _guess_word_ | _hangman_ | _rps_)
 
 Response `{id, type, status}`
 * _id_: `String`
@@ -86,6 +86,24 @@ Response `{move, game}`
     * _status_: `String`(_waiting_for_move_ | _finished_)
     * _won_: `Boolean`, whether the game has finished with a victory
     * _wrongGuessCount_: `Integer`, number of invalid guesses thus far
+
+##### Game type: _rps_
+
+Request Body Parameters
+* _guess_: `String`
+
+Response `{move, game}`
+
+* _move_: `{correct, letterMatches, guess}`
+    * _result_: `String`(_WIN_, _TIE_, _LOSS_), result of the
+      Rock-Paper-Scissors round
+    * _opposition_: `String`(_ROCK_, _PAPER_, _SCISSORS_), the opposition for the round
+    * _guess_: `String`, echo of the submitted guess
+* _game_: `{id, type, status}`
+    * _id_: `String`
+    * _type_: `String`(_rps_)
+    * _status_: `String`(_waiting_for_move_ | _finished_)
+    * _won_: `Boolean`, whether the game has finished with a victory
 
 ### WebSocket API
 
