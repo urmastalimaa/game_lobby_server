@@ -30,7 +30,7 @@ describe('GameLobby', () => {
     const sendMoveRespond = sinon.stub();
 
     gameLobby.applyMove(
-      {gameId: createdGame.id, move: 'wrong'},
+      {gameId: createdGame.id, guess: 'wrong'},
       sendMoveRespond
     );
 
