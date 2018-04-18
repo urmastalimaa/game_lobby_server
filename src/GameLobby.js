@@ -35,6 +35,8 @@ class GameLobby {
     const game = this.ongoingGames[params.gameId];
     if (!game) {
       respond({error: 'game_not_found', status: 404});
+    } else if (!params.guess) {
+      respond({error: 'invalid_input', status: 422});
     } else {
       const response = game.move({move: params.guess});
       respond({body: response, status: 201});
