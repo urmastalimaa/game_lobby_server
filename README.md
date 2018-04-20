@@ -37,6 +37,15 @@ Response `{id, type, status}`
 * _type_: `String`, echo of the submitted type
 * _status_: `String`(_waiting_for_move_)
 
+#### Game type: _hangman_
+
+Additional response fields:
+
+* _won_: `Boolean`, false
+* _wrongGuessCount_: `Integer`, 0
+* _letters_: `Array[String]`, list of letters in the target word, all letters
+  are denoted with `null`
+
 #### POST _/games/:gameId/moves_
 
 ##### Game type: _guess_number_
@@ -82,8 +91,6 @@ Response `{move, game}`
 
 * _move_: `{correct, letterMatches, guess}`
     * _matchedLetterCount_: `Integer`, how many letters of the target word matched the input
-    * _letters_: `Array[String]`, list of letters that have been already
-      guessed, letters which have not been guessed are denoted with `undefined`
     * _guess_: `String`, echo of the submitted guess
 * _game_: `{id, type, status}`
     * _id_: `String`
@@ -91,6 +98,8 @@ Response `{move, game}`
     * _status_: `String`(_waiting_for_move_ | _finished_)
     * _won_: `Boolean`, whether the game has finished with a victory
     * _wrongGuessCount_: `Integer`, number of invalid guesses thus far
+    * _letters_: `Array[String]`, list of letters that have been already
+      guessed, letters which have not been guessed are denoted with `null`
 
 ##### Game type: _rps_
 

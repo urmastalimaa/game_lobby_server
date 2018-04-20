@@ -24,7 +24,7 @@ class Hangman {
 
   present() {
     const status = (this.won || this.lost) ? 'finished' : 'waiting_for_move';
-    return {id: this.id, type: this.type, status, won: this.won, wrongGuessCount: this.wrongGuessCount};
+    return {id: this.id, type: this.type, status, won: this.won, wrongGuessCount: this.wrongGuessCount, letters: this.getGuessedLetters()};
   }
 
   getGuessedLetters() {
@@ -51,7 +51,7 @@ class Hangman {
       }
     }
     return Object.assign({}, this.present(), {
-      move: {guess: move, matchedLetterCount: matchedLetterCount, letters: this.getGuessedLetters()}
+      move: {guess: move, matchedLetterCount: matchedLetterCount}
     });
   }
 }

@@ -10,18 +10,11 @@ describe('Hangman', () => {
     game = new Hangman({id, targetWord});
   });
 
-  it('starts with status waiting_for_move', () => {
+  it('starts with status waiting_for_move and all letters unknown', () => {
     expect(game.present()).to.eql({
       id, type,
       status: 'waiting_for_move', won: false,
-      wrongGuessCount: 0
-    });
-  });
-
-  it('starts with all letters unknown', () => {
-    expect(game.move({move: 'f'}).move).to.eql({
-      guess: 'f',
-      matchedLetterCount: 0,
+      wrongGuessCount: 0,
       letters: [
         undefined,
         undefined,
@@ -37,14 +30,34 @@ describe('Hangman', () => {
   });
 
   it('increases wrong guess count when guessed incorrectly', () => {
-    expect(game.move({move: 'f'}).wrongGuessCount).to.eq(1);
+    expect(game.move({move: 'f'})).to.eql({
+      id, type,
+      status: 'waiting_for_move', won: false,
+      wrongGuessCount: 1,
+      letters: [
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      ],
+      move: {
+        guess: 'f',
+        matchedLetterCount: 0
+      }
+    });
   });
 
   it('reveals guessed letters in letter status when guessed correctly', () => {
-    const newGameState = game.move({move: 'a'});
-    expect(newGameState.wrongGuessCount).to.eq(0);
-    expect(newGameState.move.matchedLetterCount).to.eq(3);
-    expect(newGameState.move.letters).to.eql([
+    expect(game.move({move: 'a'})).to.eql({
+      id, type,
+      status: 'waiting_for_move', won: false,
+      wrongGuessCount: 0,
+      letters: [
       undefined,
       'a',
       undefined,
@@ -54,7 +67,12 @@ describe('Hangman', () => {
       undefined,
       undefined,
       'a'
-    ]);
+      ],
+      move: {
+        guess: 'a',
+        matchedLetterCount: 3
+      }
+    });
   });
 
   it('ends game when guessed incorrectly 6 times', () => {
