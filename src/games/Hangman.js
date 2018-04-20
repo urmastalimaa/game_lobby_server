@@ -24,7 +24,14 @@ class Hangman {
 
   present() {
     const status = (this.won || this.lost) ? 'finished' : 'waiting_for_move';
-    return {id: this.id, type: this.type, status, won: this.won, wrongGuessCount: this.wrongGuessCount, letters: this.getGuessedLetters()};
+    return {
+      id: this.id,
+      type: this.type,
+      status,
+      won: this.won,
+      wrongGuessCount: this.wrongGuessCount,
+      letters: this.getGuessedLetters()
+    };
   }
 
   getGuessedLetters() {
