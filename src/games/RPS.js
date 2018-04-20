@@ -11,6 +11,10 @@ const LOSS = 'LOSS';
 const TYPE = 'rps';
 
 class RPS {
+  static generate({id}) {
+    return new RPS({id});
+  }
+
   constructor({id, generateOpposition}) {
     this.id = id;
     if (generateOpposition) {

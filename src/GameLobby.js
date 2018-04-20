@@ -2,10 +2,14 @@ const uuid = require('uuid');
 
 const GuessWord = require('./games/GuessWord');
 const GuessNumber = require('./games/GuessNumber');
+const Hangman = require('./games/Hangman');
+const RPS = require('./games/RPS');
 
 const GAME_TYPE_TO_CREATE = {
   guess_word: GuessWord.generate,
-  guess_number: GuessNumber.generate
+  guess_number: GuessNumber.generate,
+  hangman: Hangman.generate,
+  rps: RPS.generate
 };
 
 class GameLobby {
