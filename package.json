@@ -1,6 +1,6 @@
 {
   "name": "game_lobby_server",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Server for Game Lobby practice project",
   "main": "src/server.js",
   "scripts": {
