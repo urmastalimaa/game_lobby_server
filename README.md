@@ -87,19 +87,18 @@ Request Body Parameters
 
 * _guess_: `String`
 
-Response `{move, game}`
+Response:
 
-* _move_: `{correct, letterMatches, guess}`
+* _id_: `String`
+* _type_: `String`(_hangman_)
+* _status_: `String`(_waiting_for_move_ | _finished_)
+* _won_: `Boolean`, whether the game has finished with a victory
+* _wrongGuessCount_: `Integer`, number of invalid guesses thus far
+* _letters_: `Array[String]`, list of letters that have been already guessed,
+  letters which have not been guessed are denoted with `null`
+* _move_: `{matchedLetterCount, guess}`
     * _matchedLetterCount_: `Integer`, how many letters of the target word matched the input
     * _guess_: `String`, echo of the submitted guess
-* _game_: `{id, type, status}`
-    * _id_: `String`
-    * _type_: `String`(_hangman_)
-    * _status_: `String`(_waiting_for_move_ | _finished_)
-    * _won_: `Boolean`, whether the game has finished with a victory
-    * _wrongGuessCount_: `Integer`, number of invalid guesses thus far
-    * _letters_: `Array[String]`, list of letters that have been already
-      guessed, letters which have not been guessed are denoted with `null`
 
 ##### Game type: _rps_
 
@@ -107,18 +106,17 @@ Request Body Parameters
 
 * _guess_: `String`
 
-Response `{move, game}`
+Response:
 
-* _move_: `{correct, letterMatches, guess}`
+* _id_: `String`
+* _type_: `String`(_rps_)
+* _status_: `String`(_waiting_for_move_ | _finished_)
+* _won_: `Boolean`, whether the game has finished with a victory
+* _move_: `{result, opposition, guess}`
     * _result_: `String`(_WIN_, _TIE_, _LOSS_), result of the
       Rock-Paper-Scissors round
     * _opposition_: `String`(_ROCK_, _PAPER_, _SCISSORS_), the opposition for the round
     * _guess_: `String`, echo of the submitted guess
-* _game_: `{id, type, status}`
-    * _id_: `String`
-    * _type_: `String`(_rps_)
-    * _status_: `String`(_waiting_for_move_ | _finished_)
-    * _won_: `Boolean`, whether the game has finished with a victory
 
 ### WebSocket API
 
