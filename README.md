@@ -19,8 +19,9 @@ game_lobby_server --delay=500 --port=8081 --failure-percentage=30
 ```
 
 or 
+
 ```
-npm start
+yarn start
 ```
 
 ### Endpoints
@@ -29,13 +30,18 @@ npm start
 
 Request Body Parameters
 
-* _type_: `String`(_guess_number_ | _guess_word_ | _hangman_ | _rps_)
+* _type_: `String`(_guess_number_ | _guess_word_ | _hangman_ | _rps_ / _metronome_)
+* _frequency_: `Integer` - Required only when type is _metronome_
 
 Response `{id, type, status}`
 
 * _id_: `String`
 * _type_: `String`, echo of the submitted type
 * _status_: `String`(_waiting_for_move_)
+
+OR
+
+Response with status code 422 in case input parameters were invalid
 
 #### Game type: _hangman_
 
@@ -117,6 +123,19 @@ Response:
       Rock-Paper-Scissors round
     * _opposition_: `String`(_ROCK_, _PAPER_, _SCISSORS_), the opposition for the round
     * _guess_: `String`, echo of the submitted guess
+
+#### Game type: _metronome_
+
+Additional response fields:
+
+* _startTimeMillis_: `Integer`
+* _tries_: `Array[Try]`, list of letters in the target word, all letters
+* _Try_: {miss}`
+    * _miss_: `Integer`, number of milliseconds missed from desired frequency
+
+#### POST _/games/:gameId/moves_
+
+No parameters required
 
 ### WebSocket API
 
