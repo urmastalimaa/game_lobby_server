@@ -129,7 +129,7 @@ Response:
 Additional response fields:
 
 * _startTimeMillis_: `Integer`
-* _tries_: `Array[Try]`, list of letters in the target word, all letters
+* _tries_: `Array[Try]`, list of metronome tries
 * _Try_: {miss}`
     * _miss_: `Integer`, number of milliseconds missed from desired frequency
 
