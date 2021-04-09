@@ -5,6 +5,7 @@ const GuessNumber = require("./games/GuessNumber");
 const Hangman = require("./games/Hangman");
 const RPS = require("./games/RPS");
 const Metronome = require("./games/Metronome");
+const Mathemagician = require("./games/Mathemagician");
 
 const GAME_TYPE_TO_CREATE = {
   guess_word: GuessWord.generate,
@@ -12,6 +13,7 @@ const GAME_TYPE_TO_CREATE = {
   hangman: Hangman.generate,
   rps: RPS.generate,
   metronome: Metronome.generate,
+  mathemagician: Mathemagician.generate,
 };
 
 class GameLobby {
