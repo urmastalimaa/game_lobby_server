@@ -19,22 +19,22 @@
     "game_lobby_server": "./bin/server.js"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.15.0",
-    "eslint-config-google": "^0.7.1",
+    "chai": "^4.3.0",
+    "eslint": "^7.20.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.1.0",
     "mocha": "^3.2.0",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
     "prettier": "^2.2.1",
+    "sinon": "^10.0.0",
+    "sinon-chai": "^3.6.0"
   },
   "dependencies": {
     "argparse": "^1.0.9",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "uuid": "^3.0.1",
     "ramda": "^0.23.0",
+    "uuid": "^3.0.1",
     "websocket": "^1.0.24"
   }
 }
