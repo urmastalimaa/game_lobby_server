@@ -1,29 +1,27 @@
-const uuid = require('uuid');
+const uuid = require("uuid");
 
 const CONNECTION_REJECT_REASONS = {
-  nameTaken: 'player-name-taken'
+  nameTaken: "player-name-taken",
 };
 
-module.exports = ({delay}) => {
+module.exports = ({ delay }) => {
   let players = [];
 
   const send = (connection) => (eventName, payload) => {
-    setTimeout(
-      () => {
-        if (connection.connected) {
-          connection.send(JSON.stringify({eventName, payload}));
-        }
-      },
-      delay
-    );
+    setTimeout(() => {
+      if (connection.connected) {
+        connection.send(JSON.stringify({ eventName, payload }));
+      }
+    }, delay);
   };
 
   const notifyEveryoneOfPlayers = () => {
-    const payload = players.map((player) =>
-      ({id: player.id, name: player.name})
-    );
+    const payload = players.map((player) => ({
+      id: player.id,
+      name: player.name,
+    }));
     players.forEach((player) => {
-      send(player.connection)('online-players', payload);
+      send(player.connection)("online-players", payload);
     });
   };
 
@@ -33,18 +31,21 @@ module.exports = ({delay}) => {
       const playerName = queryParameters.playerName;
       const playerId = uuid.v4();
 
-      const connection = httpRequest.accept(httpRequest.requestedProtocols[0], httpRequest.origin);
+      const connection = httpRequest.accept(
+        httpRequest.requestedProtocols[0],
+        httpRequest.origin
+      );
 
       if (players.find((player) => player.name === playerName)) {
         connection.close(4000, CONNECTION_REJECT_REASONS.nameTaken);
         return;
       }
 
-      send(connection)('connection:accepted', {playerId});
-      players = players.concat({id: playerId, name: playerName, connection});
+      send(connection)("connection:accepted", { playerId });
+      players = players.concat({ id: playerId, name: playerName, connection });
       notifyEveryoneOfPlayers();
 
-      connection.on('close', () => {
+      connection.on("close", () => {
         players = players.filter((player) => player.id !== playerId);
         notifyEveryoneOfPlayers();
       });

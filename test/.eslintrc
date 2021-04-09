@@ -9,14 +9,5 @@
   "globals": {
     "expect": true,
     "sinon": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "google",
-  ],
-  rules: {
-    "max-len": ["error", 120],
-    "require-jsdoc": "off",
-    "comma-dangle": "off"
   }
 }

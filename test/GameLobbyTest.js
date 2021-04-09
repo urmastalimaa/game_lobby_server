@@ -1,36 +1,33 @@
-const GameLobby = require('../src/GameLobby');
+const GameLobby = require("../src/GameLobby");
 
-describe('GameLobby', () => {
+describe("GameLobby", () => {
   let gameLobby;
   beforeEach(() => {
     gameLobby = new GameLobby();
   });
 
-  it('responds with 404 when game not found for move', () => {
+  it("responds with 404 when game not found for move", () => {
     const sendMoveRespond = sinon.stub();
     gameLobby.applyMove(
-      {gameId: 'non-existing-id', move: 'wrong'},
+      { gameId: "non-existing-id", move: "wrong" },
       sendMoveRespond
     );
     expect(sendMoveRespond).to.have.been.calledWith({
-      error: 'game_not_found',
-      status: 404
+      error: "game_not_found",
+      status: 404,
     });
   });
 
-  it('sets up word game', () => {
+  it("sets up word game", () => {
     const createGameRespond = sinon.stub();
-    gameLobby.createGame(
-      {type: 'guess_word'},
-      createGameRespond
-    );
+    gameLobby.createGame({ type: "guess_word" }, createGameRespond);
     expect(createGameRespond).to.have.been.called;
     const createdGame = createGameRespond.getCall(0).args[0].body;
 
     const sendMoveRespond = sinon.stub();
 
     gameLobby.applyMove(
-      {gameId: createdGame.id, guess: 'wrong'},
+      { gameId: createdGame.id, guess: "wrong" },
       sendMoveRespond
     );
 
@@ -40,9 +37,10 @@ describe('GameLobby', () => {
         move: {
           correct: false,
           letterMatches: [false, false, false, false, false],
-          guess: 'wrong'
-        }
-      }, status: 201
+          guess: "wrong",
+        },
+      },
+      status: 201,
     });
   });
 });

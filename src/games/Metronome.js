@@ -1,26 +1,25 @@
-const TYPE = 'metronome';
+const TYPE = "metronome";
 
 class Metronome {
-
   static generate(params) {
     if (!(parseInt(params.frequency) > 0)) {
-      throw new Error('Invalid frequency');
+      throw new Error("Invalid frequency");
     }
 
     return new Metronome({
       id: params.id,
       frequency: parseInt(params.frequency),
-      startTimeMillis: Date.now()
+      startTimeMillis: Date.now(),
     });
   }
 
-  constructor({id, startTimeMillis, frequency}) {
+  constructor({ id, startTimeMillis, frequency }) {
     this.type = TYPE;
     this.id = id;
     this.startTimeMillis = startTimeMillis;
     this.frequency = frequency;
     this.tries = [];
-    this.status = 'waiting_for_move';
+    this.status = "waiting_for_move";
   }
 
   move() {
@@ -38,9 +37,11 @@ class Metronome {
   }
 
   recordTry() {
-    this.tries = this.tries.concat([{
-      miss: this.calculateMiss(Date.now())
-    }]);
+    this.tries = this.tries.concat([
+      {
+        miss: this.calculateMiss(Date.now()),
+      },
+    ]);
   }
 
   present() {
@@ -50,7 +51,7 @@ class Metronome {
       status: this.status,
       startTimeMillis: this.startTimeMillis,
       frequency: this.frequency,
-      tries: this.tries
+      tries: this.tries,
     };
   }
 }

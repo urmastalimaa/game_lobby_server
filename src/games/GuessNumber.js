@@ -1,27 +1,36 @@
-const Game = require('./Game');
+const Game = require("./Game");
 
 class GuessNumber {
-  static generate({id}) {
+  static generate({ id }) {
     const upperBound = 10;
     const number = Math.floor(Math.random() * upperBound);
-    return new GuessNumber({id, targetNumber: number});
+    return new GuessNumber({ id, targetNumber: number });
   }
 
-  constructor({id, targetNumber}) {
-    this.game = new Game({id, type: 'guess_number'});
+  constructor({ id, targetNumber }) {
+    this.game = new Game({ id, type: "guess_number" });
     this.targetNumber = targetNumber;
   }
 
-  move({move}) {
+  move({ move }) {
     const isCorrect = move === this.targetNumber;
-    this.game.move({move, isCorrect});
+    this.game.move({ move, isCorrect });
 
     if (move === this.targetNumber) {
-      return {move: {comparedToAnswer: 'EQ', guess: move}, game: this.game.present()};
+      return {
+        move: { comparedToAnswer: "EQ", guess: move },
+        game: this.game.present(),
+      };
     } else if (move > this.targetNumber) {
-      return {move: {comparedToAnswer: 'GT', guess: move}, game: this.game.present()};
+      return {
+        move: { comparedToAnswer: "GT", guess: move },
+        game: this.game.present(),
+      };
     } else {
-      return {move: {comparedToAnswer: 'LT', guess: move}, game: this.game.present()};
+      return {
+        move: { comparedToAnswer: "LT", guess: move },
+        game: this.game.present(),
+      };
     }
   }
 

@@ -5,11 +5,8 @@
   "env": {
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "google",
-  ],
-  rules: {
+  "extends": ["eslint:recommended", "google", "prettier"],
+  "rules": {
     "max-len": ["error", 120],
     "require-jsdoc": "off",
     "comma-dangle": "off",
