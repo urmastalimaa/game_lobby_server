@@ -10,7 +10,8 @@
     "start-very-slow": "node src/server.js --delay=2000",
     "lint": "eslint .",
     "test": "mocha",
-    "pretest": "eslint src",
+    "test:ci": "mocha",
+    "pretest:ci": "eslint src; prettier --check .",
     "format": "prettier --write ."
   },
   "author": "Urmas Talimaa",
